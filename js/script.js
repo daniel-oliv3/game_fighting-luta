@@ -6,6 +6,7 @@ canvas.height = 576;
 
 c.fillRect(0, 0, canvas.width, canvas.height);
 
+const gravity = 0.2;
 
 /*Criando o player e o inimigo*/
 class Sprite {
@@ -22,10 +23,13 @@ class Sprite {
 
     update() {
         this.draw();
+        
         this.position.y += this.velocity.y;
 
         if(this.position.y + this.height + this.velocity.y >= canvas.height){
-            
+            this.velocity.y = 0;
+        }else {
+            this.velocity.y += gravity;
         } 
     }
 }
@@ -67,3 +71,9 @@ function animate(){
 
 
 animate()
+
+/*Move Characters with event Listeners*/
+//Mode os personagem.
+window.addEventListener('keydown', (event) => {
+    console.log(event);
+});
