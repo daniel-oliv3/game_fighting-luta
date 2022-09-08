@@ -9,34 +9,61 @@ c.fillRect(0, 0, canvas.width, canvas.height);
 
 /*Criando o player e o inimigo*/
 class Sprite {
-    constructor(position, velocity){
+    constructor({position, velocity}){
         this.position = position;
         this.velocity = velocity;
+        this.height = 150;
     }
 
     draw(){
         c.fillStyle = 'red';
-        c.fillRect(this.position.x, this.position.y, 50, 150);
+        c.fillRect(this.position.x, this.position.y, 50, this.height);
+    }
+
+    update() {
+        this.draw();
+        this.position.y += this.velocity.y;
+
+        if(this.position.y + this.height + this.velocity.y >= canvas.height){
+            
+        } 
     }
 }
 
 const player = new Sprite({
-    x: 0,
-    y: 0
+    position: {
+        x: 0,
+        y: 0
+    },
+    velocity: {
+        x: 0,
+        y: 10
+    }
 });
 
 player.draw();
 
 const enemy = new Sprite({
-    x: 400,
-    y: 100
+    position: {
+        x: 400,
+        y: 100
+    },
+    velocity: {
+        x: 0,
+        y: 0
+    }
 });
 
-enemy.draw();
 
 console.log(player);
 
 function animate(){
     window.requestAnimationFrame(animate);
-    console.log('go');
+    c.fillStyle = 'black';
+    c.fillRect(0, 0, canvas.width, canvas.height);
+    player.update();
+    enemy.update();
 }
+
+
+animate()
